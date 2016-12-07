@@ -2,7 +2,7 @@ from django import forms as form
 from django.forms import *
 from company.models import Employe
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit,Layout,Field,HTML,Fieldset
+from crispy_forms.layout import Submit,Layout,Field,HTML
 from crispy_forms.bootstrap import InlineField
 
 
@@ -11,7 +11,6 @@ class ProfileEditForm(ModelForm):
         super(ProfileEditForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'POST'
-        self.helper.form_action = 'submit_survey'
         self.helper.add_input(Submit('submit', 'Kaydet'))
         self.helper.layout = Layout(
             Field('name'),
