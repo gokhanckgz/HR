@@ -86,7 +86,7 @@ WSGI_APPLICATION = 'Feelincs.wsgi.application'
 DATABASES = {
     'default':{
 		'ENGINE':'django.db.backends.postgresql_psycopg2',
-		'NAME':'deneme2,
+		'NAME':'deneme2',
 		'USER':'postgres',
 		'PASSWORD':'123',
         'HOST':'',
