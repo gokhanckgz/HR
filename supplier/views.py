@@ -10,7 +10,7 @@ def index(request):
     supplier = Supplier.objects.get(user_id=request.user.id)
     sp_id = supplier.id
     try:
-        conn = psycopg2.connect("dbname='deneme' user='postgres' host='localhost' password=''")
+        conn = psycopg2.connect("dbname='deneme2' user='postgres' host='localhost' password='123'")
     except:
         print "I am unable to connect to the database"
     cur = conn.cursor()
