@@ -26,7 +26,7 @@ SECRET_KEY = 'ko1p71hjjg=p)j0)8(o8)5#%7uybwpwd*y%-6w^s=r^xj25+vi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['feelincs.com','www.feelincs.com']
+ALLOWED_HOSTS = ['feelincs.com','www.feelincs.com','localhost']
 
 
 # Application definition
