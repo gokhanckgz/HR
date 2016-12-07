@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-clearmin.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/roboto.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/material-design.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+        <title>Feelincs Insan Kaynakları</title>
+    </head>
+    <body class="cm-no-transition cm-1-navbar">
+        <div id="cm-menu">
+            <nav class="cm-navbar cm-navbar-midnight">
+                <div class="cm-flex"><a href="index.html"></a></div>
+                <div class="btn md-menu-white btn-midnight" data-toggle="cm-menu"></div>
+            </nav>
+            <div id="cm-menu-content">
+                <div id="cm-menu-items-wrapper">
+                    <div id="cm-menu-scroller">
+                        <ul class="cm-menu-items">
+                            <li class="active"><a href="/supplier" class="sf-house">Anasayfa</a></li>
+                            <li><a href="/supplier/services" class="sf-window-layout">Servislerim</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header id="cm-header">
+            <nav class="cm-navbar cm-navbar-midnight">
+                <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
+                <div class="cm-flex">
+                    <h1>Anasayfa</h1>
+                    <form id="cm-search" action="/supplier" method="GET">
+                        <input type="search" name="q" autocomplete="off" placeholder="Search...">
+                    </form>
+                </div>
+                <div class="pull-right">
+                    <div id="cm-search-btn" class="btn btn-midnight md-search-white" data-toggle="cm-search"></div>
+                </div>
+                <div class="dropdown pull-right">
+                    {% if supplier.image %}
+                    <button class="btn btn-midnight" data-toggle="dropdown" style="background: url({{ supplier.image.url }});background-size: cover;border-radius:50%;opacity: 0.7;background-position: center;">
+                    </button>
+                    {% else %}
+                     <button class="btn  md-account-circle-white btn-midnight" data-toggle="dropdown"></button>
+                    {% endif %}
+                    <ul class="dropdown-menu">
+                        <li class="disabled text-center">
+                            <a style="cursor:default;"><strong>{{ supplier.supplier_name }}</strong></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/supplier/profile/"><i class="fa fa-fw fa-user"></i> Profil</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-cog"></i> Ayarlar</a>
+                        </li>
+                        <li>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i> Çıkış Yap</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="global">
+            <div class="container-fluid cm-container-white">
+                <h2 style="margin-top:0;">Feelincs Insan Kaynakları</h2>
+            </div>
+            <div class="container-fluid">
+                <div class="row cm-fix-height">
+                    <div class="col-md-6" style="width: 100%;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Servis Tablom</div>
+                            <div class="panel-body">
+                                <p style="margin-bottom:0"><code>Genel</code>kullanımını bu ekranda görünteleyebilirsiniz.</p>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Kullanıcı İsmi</th>
+                                        <th>Kullanıcı Soyismi </th>
+                                        <th>Kullanıcı Telefonu </th>
+                                        <th>Kullanıcı Fotoğrafı</th>
+                                        <th>Kullandığı Servis</th>
+                                        <th>Çalıştığı Şirket</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in data %}
+                                    <tr class="active">
+                                        <th scope="row">{{ user.1 }}</th>
+                                        <td>{{ user.2 }}</td>
+                                        <td>{{ user.3 }}</td>
+                                        <td style="padding:15px 0px 15px 0px;">
+                                            <a href="employe_info/{{ user.0 }}" title="">
+                                            <img src="/media/{{ user.4 }}" style="height:50px;" alt="" title=""></a>
+                                        </td>
+                                            <td>{{user.5}}</td>
+                                        <td>{{ user.6}}</td>
+                                    {% endfor %}
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; </span></footer>
+
+            </div>
+
+
+        <script src="{% static 'assets/js/lib/jquery-2.1.3.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.mousewheel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.cookie.min.js' %}"></script>
+        <script src="{% static 'assets/js/fastclick.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/clearmin.min.js' %}"></script>
+        <script src="{% static 'assets/js/demo/home.js' %}"></script>
+    </body>
+</html>

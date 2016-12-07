@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-clearmin.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/roboto.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/material-design.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+        <title>Feelincs Insan Kaynakları</title>
+    </head>
+    <body class="cm-no-transition cm-1-navbar">
+        <div id="cm-menu">
+            <nav class="cm-navbar cm-navbar-midnight">
+                <div class="cm-flex"><a href="index.html"></a></div>
+                <div class="btn md-menu-white btn-midnight" data-toggle="cm-menu"></div>
+            </nav>
+            <div id="cm-menu-content">
+                <div id="cm-menu-items-wrapper">
+                    <div id="cm-menu-scroller">
+                        <ul class="cm-menu-items">
+                            <li><a href="/company" class="sf-house">Anasayfa</a></li>
+                            <li class="active"><a href="/company/employes" class="sf-window-layout">Çalışanlarım</a></li>
+                            <li><a href="/company/services" class="sf-window-layout">Servisler</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header id="cm-header">
+            <nav class="cm-navbar cm-navbar-midnight">
+                <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
+                <div class="cm-flex">
+                    <h1>Çalışanlarım</h1>
+                </div>
+
+                <div class="dropdown pull-right">
+                    {% if company.image %}
+                    <button class="btn btn-midnight" data-toggle="dropdown" style="background: url({{ company.image.url }});background-size: cover;border-radius:50%;opacity: 0.7;background-position: center;">
+                    </button>
+                    {% else %}
+                     <button class="btn  md-account-circle-white btn-midnight" data-toggle="dropdown"></button>
+                    {% endif %}
+                    <ul class="dropdown-menu">
+                        <li class="disabled text-center">
+                            <a style="cursor:default;"><strong>{{ company.company_name }}</strong></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/company/profile/"><i class="fa fa-fw fa-user"></i> Profil</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-cog"></i> Ayarlar</a>
+                        </li>
+                        <li>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i> Çıkış Yap</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="global">
+            <div class="container-fluid cm-container-white">
+                <h2 style="margin-top:0;">Feelincs Insan Kaynakları</h2>
+            </div>
+            <div class="container-fluid">
+				<div class="row cm-fix-height">
+                    <div class="col-md-6" style="width: 100%;">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Çalışan Tablom</div>
+                            <div class="panel-body">
+                                <p style="margin-bottom:0"><code>Çalışanlarınızı</code>bu ekranda görünteleyebilirsiniz.<code>Ekleme</code>yapmak için sayfanın aşağısındaki butonu kullanın.</p>
+                            </div>
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Çalışan Adı</th>
+                                        <th>Çalışan Soyadı</th>
+                                        <th>Çalışan Fotoğrafı</th>
+                                        <th>Çalışan Kredisi</th>
+                                        <th>Düzenle</th>
+                                        <th>Sil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for employe in data %}
+                                    <tr class="active">
+                                        <th scope="row">{{ employe.id }}</th>
+                                        <td>{{ employe.name }}</td>
+                                        <td>{{ employe.surname }}</td>
+                                        {% if employe.image %}
+                                        <td style="padding:15px 0px 15px 0px;">
+                                            <a href="/company/employe_info/{{ employe.id }}" title="">
+                                            <img src="{{ employe.image.url }}" style="height:50px;" alt="" title=""></a>
+                                        </td>
+                                            {% else %}
+                                            <td>Fotoğraf Bulunmamaktadır</td>
+                                        {% endif %}
+                                        <td style="padding-left: 4.5%;">{{ employe.credit }}</td>
+                                        <form action="emp_edit/{{ employe.id }}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="item_id" value="{{employe.id}}" />
+                                        <td><button type="submit" class="btn btn-midnight btn-sm"> Düzenle</button></td>
+                                        </form>
+                                        <form action="emp_delete/{{ employe.id }}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="item_id" value="{{employe.id}}" />
+                                        <td><button type="submit" class="btn btn-midnight btn-sm"> Sil</button></td>
+                                        </form>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+            <a href="emp_add">
+                <button type="button" class="btn btn-midnight btn-lg"> Ekleme</button>
+            </a>
+                    </div>
+				</div>
+            </div>
+
+            <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; </span></footer>
+        </div>
+        <script src="{% static 'assets/js/lib/jquery-2.1.3.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.mousewheel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.cookie.min.js' %}"></script>
+        <script src="{% static 'assets/js/fastclick.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/clearmin.min.js' %}"></script>
+        <script src="{% static 'assets/js/demo/home.js' %}"></script>
+    </body>
+</html>

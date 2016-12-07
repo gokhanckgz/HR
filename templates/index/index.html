@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-clearmin.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/roboto.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/material-design.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+        <title>Feelincs Insan Kaynakları</title>
+        <style>
+            body {
+                background-image:url('{% static 'background/back.jpg' %}');
+                background-repeat:no-repeat;
+                -webkit-background-size:cover;
+                -moz-background-size:cover;
+                -o-background-size:cover;
+                background-size:cover;
+                background-position:center;     
+            }
+    </style>
+    </head>
+    <body>
+            <nav class="cm-navbar cm-navbar-midnight" style="opacity:0.7;">
+             <div class="pull-left" class="fl-logo" style="line-height:200%;font-size:200%;margin-left:5px;"><a href="index.html"><img src="{% static 'src/img/feelincs.svg' %}"> </a></div>
+             <a href="/login">   
+                <div class="pull-right" style="line-height:200%;font-size:200%;margin-right:30px;">Giriş</div>
+            </a>
+            </nav>
+        <div id="global">
+            <div class="container-fluid">
+                
+        </div>
+            <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; </span></footer>
+        </div>
+        <script src="{% static 'assets/js/lib/jquery-2.1.3.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.mousewheel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.cookie.min.js' %}"></script>
+        <script src="{% static 'assets/js/fastclick.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/clearmin.min.js' %}"></script>
+        <script src="{% static 'assets/js/demo/home.js' %}"></script>
+    </body>
+</html>

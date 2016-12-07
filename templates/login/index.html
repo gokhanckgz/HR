@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	  {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-clearmin.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/roboto.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+    <title>Feelincs Login</title>
+  </head>
+  <body class="cm-login">
+
+    <div class="text-center" style="padding:90px 0 30px 0;background:#fff;border-bottom:1px solid #ddd">
+      LOGO
+    </div>
+    
+    <div class="col-sm-6 col-md-4 col-lg-3" style="margin:40px auto; float:none;">
+      <form method="post">
+	<div class="col-xs-12">
+	  <div class="form-group">
+	      <form class="form-control">{% csrf_token %}
+			<ul class="form-group">
+				<li class="input-group"><i class="fa fa-fw fa-user"></i>{{form.username}}</li>
+				<li class="input-group"><i class="fa fa-fw fa-lock"></i>{{form.password}}</li>
+		    </ul>	
+			<button type="submit" class="btn btn-block btn-primary">Giriş Yap</button>
+		  </form>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

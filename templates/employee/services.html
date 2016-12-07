@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load staticfiles %}
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/bootstrap-clearmin.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/roboto.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/material-design.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
+        <title>Feelincs Insan Kaynakları</title>
+                <style>
+            .text-image{
+                opacity: 0;
+                width: 100%;
+                color: #fff;
+                left: 0;
+                bottom: 0;
+                padding: 0.75em 1em;
+                font-weight: 700;
+                z-index: 2;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                background-color: rgba(0,0,0,.7);
+                -webkit-transition: opacity .3s ease-in-out;
+                transition: opacity .3s ease-in-out;
+                border-radius: 1%;
+            }
+            .text-image:hover {
+                opacity: 1;
+            }
+        </style>
+    </head>
+    <body class="cm-no-transition cm-1-navbar">
+        <div id="cm-menu">
+            <nav class="cm-navbar cm-navbar-midnight">
+                <div class="cm-flex"><a href="index.html"></a></div>
+                <div class="btn md-menu-white btn-midnight" data-toggle="cm-menu"></div>
+            </nav>
+            <div id="cm-menu-content">
+                <div id="cm-menu-items-wrapper">
+                    <div id="cm-menu-scroller">
+                        <ul class="cm-menu-items">
+                            <li><a href="/employee" class="sf-house">Anasayfa</a></li>
+                            <li class="active"><a href="/employee/services/" class="sf-window-layout">Kullandığım Servisler</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <header id="cm-header">
+            <nav class="cm-navbar cm-navbar-midnight">
+                <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
+                <div class="cm-flex">
+                    <h1>Kullandığım Servisler</h1>
+                </div>
+
+                <div class="dropdown pull-right">
+                  {% if employe.image %}
+                    <button class="btn btn-midnight" data-toggle="dropdown" style="background: url({{ employe.image.url }});background-size: cover;background-position:center;border-radius:50%;opacity: 0.7">
+                    </button>
+                    {% else %}
+                     <button class="btn  md-account-circle-white btn-midnight" data-toggle="dropdown"></button>
+                    {% endif %}
+                    <ul class="dropdown-menu">
+                        <li class="disabled text-center">
+                            <a style="cursor:default;"><strong>{{ employe.name }}</strong></a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="/employee/profile/"><i class="fa fa-fw fa-user"></i> Profil</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-cog"></i> Ayarlar</a>
+                        </li>
+                        <li>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i> Çıkış Yap</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <div id="global">
+            <div class="container-fluid cm-container-white">
+                <h2 style="margin-top:0;">Feelincs Insan Kaynakları</h2>
+            </div>
+            <div class="container-fluid">
+                <div class="row cm-fix-height">
+					{%  for service in services %}
+					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.service_image.url}}); background-size: cover;">
+                        <div class="text-image">
+                            <div class="panel-body text-center">
+                           <a href="service_leave/{{ service.id }}">
+                                <h1>Çıkar</h1>
+                            </a>
+                            </div>
+                            <a href="/employee/service_info/{{ service.id }}"><h4 align="center">{{service.service_name}}</h4> </a>
+                            <p align="center">{{service.service_info}}</p>
+                            </div>
+                        </a>
+                    </div>
+					{% endfor %}
+                </div>
+				<div class="row cm-fix-height">
+				</div>
+            </div>
+
+            <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; </span></footer>
+        </div>
+        <script src="{% static 'assets/js/lib/jquery-2.1.3.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.mousewheel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.cookie.min.js' %}"></script>
+        <script src="{% static 'assets/js/fastclick.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'assets/js/clearmin.min.js' %}"></script>
+        <script src="{% static 'assets/js/demo/home.js' %}"></script>
+    </body>
+</html>
