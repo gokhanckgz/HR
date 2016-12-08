@@ -90,14 +90,15 @@
 					{%  for service in services %}
 					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.service_image.url}}); background-size: cover;">
-                        <div class="text-image">
-                            <div class="panel-body text-center">
-                           <a href="/employee/service_leave/{{ service.id }}">
-                                <h1>Çıkar</h1>
-                            </a>
-                            </div>
-                            <a href="/employee/service_info/{{ service.id }}"><h4 align="center">{{service.service_name}}</h4> </a>
-                            <p align="center">{{service.service_info}}</p>
+                            <div class="text-image">
+                                <div class="panel-body text-center">
+                                   <a href="/employee/service_leave/{{ service.id }}">
+                                        <h1>Çıkar</h1>
+                                    </a>
+                                </div>
+                                  <div class="svg-48">
+                                    <a href="service_info/{{ service.id }}"><h4 align="center">{{service.service_name}}</h4> </a>
+                                </div>
                             </div>
                     </div>
                 </div>
