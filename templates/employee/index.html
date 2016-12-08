@@ -10,7 +10,27 @@
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
         <title>Feelincs Insan Kaynakları</title>
-
+        <style>
+            .text-image{
+                opacity: 0;
+                width: 100%;
+                color: #fff;
+                left: 0;
+                bottom: 0;
+                padding: 0.75em 1em;
+                font-weight: 700;
+                z-index: 2;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                background-color: rgba(0,0,0,.7);
+                -webkit-transition: opacity .3s ease-in-out;
+                transition: opacity .3s ease-in-out;
+                border-radius: 1%;
+            }
+            .text-image:hover {
+                opacity: 1;
+            }
+        </style>
     </head>
     <body class="cm-no-transition cm-1-navbar">
         <div id="cm-menu">
@@ -69,6 +89,7 @@
 					{%  for service in services %}
 					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
                         <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.service_image.url}}); background-size: cover;">
+                            <div class="text-image">
                                 <div class="panel-body text-center">
                                     {% if service in used_services %}
                                         <a href="service_leave/{{ service.id }}">
@@ -84,6 +105,7 @@
                                 <p align="center">{{service.service_info}}</p>
                            </div>
                         </div>
+                    </div>
 					{% endfor %}
                 </div>
             </div>
