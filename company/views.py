@@ -37,7 +37,7 @@ def employes(request):
     data = Employe.objects.filter(company_id=company.id).all()
     if request.GET:
         search_value = request.GET.get('q')
-        data = Employe.objects.annotate(search=SearchVector('name','surname'),).filter(search=search_value)
+        data = Employe.objects.annotate(search=SearchVector('name','surname','phone_number'),).filter(search=search_value)
     return render(request, 'company/employes.html', locals())
 
 def employe_info(request,pk):
@@ -79,6 +79,9 @@ def services(request):
     choosen_services = Company_Service.objects.filter(company_id=company.id).all()
     used_services = Service.objects.filter(id__in=choosen_services.values("service_id"))
     data = Service.objects.all()
+    if request.GET:
+        search_value = request.GET.get('q')
+        data = Service.objects.annotate(search=SearchVector('service_name'),).filter(search=search_value)
     return render(request, 'company/services.html', locals(), RequestContext(request))
 
 def service_choose(request,pk):
