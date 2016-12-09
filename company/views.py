@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.http import *
@@ -34,6 +35,9 @@ def profile(request):
 def employes(request):
     company = Company.objects.get(user_id=request.user.id)
     data = Employe.objects.filter(company_id=company.id).all()
+    if request.GET:
+        search_value = request.GET.get('q')
+        data = Employe.objects.annotate(search=SearchVector('name','surname'),).filter(search=search_value)
     return render(request, 'company/employes.html', locals())
 
 def employe_info(request,pk):

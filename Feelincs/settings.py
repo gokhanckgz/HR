@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 	'employee',
     'psycopg2',
     'crispy_forms',
+    'django.contrib.postgres'
 ]
 
 MIDDLEWARE_CLASSES = [

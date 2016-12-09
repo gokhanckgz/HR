@@ -27,7 +27,7 @@ def index(request):
             "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
             "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
             "AND company_employe.company_id = company_company.id AND "
-            " to_tsvector(company_employe.name || ' ' || company_employe.surname || ' ' || company_employe.phone_number) @@ to_tsquery (%s);;",
+            " to_tsvector(company_employe.name || ' ' || company_employe.surname || ' ' || company_employe.phone_number) @@ to_tsquery (%s);",
             (str(sp_id), str(search_value)))
         data = cur.fetchall()
         return render(request, 'supplier/index.html', locals(), RequestContext(request))

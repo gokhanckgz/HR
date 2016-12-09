@@ -34,8 +34,13 @@
                 <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
                 <div class="cm-flex">
                     <h1>Servisler</h1>
+                <form id="cm-search" action="/company/services" method="GET">
+                        <input type="search" name="q" autocomplete="off" placeholder="Search...">
+                    </form>
                 </div>
-
+                <div class="pull-right">
+                    <div id="cm-search-btn" class="btn btn-midnight md-search-white" data-toggle="cm-search"></div>
+                </div>
                 <div class="dropdown pull-right">
                     {% if company.image %}
                     <button class="btn btn-midnight" data-toggle="dropdown" style="background: url({{ company.image.url }});background-size: cover;border-radius:50%;opacity: 0.7;background-position: center;">
