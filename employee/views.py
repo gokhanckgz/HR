@@ -2,9 +2,10 @@ from django.http import HttpResponseForbidden
 from django.template import RequestContext
 from django.shortcuts import render, redirect
 from supplier.models import Service
-from company.models import Benefit, Employe ,Company_Service, Company
-from .forms import ProfileEditForm,CreditTransferForm
+from company.models import Benefit, Employe, Company_Service, Company
+from .forms import ProfileEditForm, CreditTransferForm
 from usermanage.models import User
+
 
 def index(request):
     if not request.user.user_type == 'Employe':
@@ -26,6 +27,7 @@ def services(request):
     services = Service.objects.filter(id__in=bnf.values("supplier_service_id")).all()
     return render(request, 'employee/services.html', locals(), RequestContext(request))
 
+
 def profile(request):
     employe = Employe.objects.get(user_id=request.user.id)
     form = ProfileEditForm(instance=employe)
@@ -39,6 +41,7 @@ def profile(request):
             return redirect('/employee', locals())
     return render(request, 'employee/profile.html', locals(), RequestContext(request))
 
+
 def credit_transfer(request):
     employe = Employe.objects.get(user_id=request.user.id)
     form = CreditTransferForm()
@@ -50,14 +53,15 @@ def credit_transfer(request):
                 value = form.cleaned_data['credit']
                 user = User.objects.get(username=username)
                 t_employe = Employe.objects.get(user_id=user)
-                t_employe.credit+=value
+                t_employe.credit += value
                 t_employe.save()
-                employe.credit-=value
+                employe.credit -= value
                 employe.save()
                 return redirect('/employee', locals())
         else:
             form = CreditTransferForm(request.POST)
     return render(request, 'employee/profile.html', locals(), RequestContext(request))
+
 
 def service_choose(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
@@ -84,6 +88,8 @@ def service_leave(request, pk):
     except Benefit.DoesNotExist:
         return "yok ki"
         ##zaten kullanilmayan service
+
+
 def service_info(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     service = Service.objects.get(id=pk)
