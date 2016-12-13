@@ -92,17 +92,17 @@
                             <div class="text-image">
                                 <div class="panel-body text-center">
                                     {% if service in used_services %}
-                                        <a href="service_leave/{{ service.id }}">
+                                        <a href="services/service_leave/{{ service.id }}">
                                             <h1>Çıkar</h1>
                                         </a>
                                     {% else %}
-                                        <a href="service_choose/{{ service.id }}">
+                                        <a href="services/service_choose/{{ service.id }}">
                                         <h1>Ekle</h1>
                                         </a>
                                     {% endif %}
                                 </div>
                                 <div class="svg-48">
-                                    <a href="service_info/{{ service.id }}"><h4 align="center">{{service.service_name}}</h4> </a>
+                                    <a href="services/service_info/{{ service.id }}"><h4 align="center">{{service.service_name}}</h4> </a>
                                 </div>
                            </div>
                         </div>

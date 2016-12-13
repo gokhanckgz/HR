@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.forms import *
 from django.contrib.auth import *
-from django.contrib.auth.decorators import * 
-from django.http import * 
+from django.http import *
+
 def login_page(request):
 	form = AuthenticationForm
 	if(request.method=='POST'):
