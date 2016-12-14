@@ -28,7 +28,7 @@ class Employe(models.Model):
 class Benefit(models.Model):
     employe = models.ForeignKey(Employe)
     service = models.ForeignKey(Service)
-
+    usage = models.IntegerField(verbose_name="Benefit Usage")
     def __str__(self):
         return 'Employe ID is %s and Benefit ID is %s' % (str(self.employe_id), str(self.service_id))
 
