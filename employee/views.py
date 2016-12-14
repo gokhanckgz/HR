@@ -67,12 +67,14 @@ def service_choose(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     srv = Service.objects.get(id=pk)
     if employe.credit >= srv.credit:
-        benefit = Benefit(employe_id=employe.id, service_id=srv.id)
-        if benefit:
-            benefit.usage=1
+        if Benefit.objects.filter(employe_id=employe.id, service_id=srv.id).exists():
+            benefit = Benefit.objects.get(employe_id=employe.id, service_id=srv.id)
+            benefit.usage +=1
             benefit.save()
         else:
-            benefit.usage = +1
+            benefit = Benefit(employe_id=employe.id, service_id=srv.id)
+            benefit.usage=1
+            benefit.save()
         employe.credit = employe.credit - srv.credit
         employe.save()
     else:
