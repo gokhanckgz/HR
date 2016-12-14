@@ -13,13 +13,13 @@ class ProfileEditForm(ModelForm):
         self.helper.form_action = 'submit_survey'
         self.helper.add_input(Submit('submit', 'Kaydet'))
         self.helper.layout = Layout(
-            Field('company_name'),
+            Field('name'),
             Field('image'),
             HTML("""{% if form.image.value %}<img class="img-profile" src="{{ MEDIA_URL }}{{ form.image.value }}">{% endif %}"""),
         )
     class Meta:
         model = Company
-        fields = ['company_name','image']
+        fields = ['name','image']
 
 
 class ServiceUseForm(ModelForm):
@@ -31,7 +31,7 @@ class ServiceUseForm(ModelForm):
 
     class Meta:
         model = Benefit
-        fields = ('supplier_service',)
+        fields = ('service',)
 
     def save(self, **kwargs):
         benefit = super(ServiceUseForm, self).save(commit=False)

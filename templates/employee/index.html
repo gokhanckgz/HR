@@ -88,7 +88,7 @@
                 <div class="row cm-fix-height">
 					{%  for service in services %}
 					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.service_image.url}}); background-size: cover;">
+                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.image.url}}); background-size: cover;">
                             <div class="text-image">
                                 <div class="panel-body text-center">
                                     {% if service in used_services %}
@@ -102,7 +102,7 @@
                                     {% endif %}
                                 </div>
                                 <div class="svg-48">
-                                    <a href="services/service_info/{{ service.id }}"><h4 align="center">{{service.service_name}}</h4> </a>
+                                    <a href="services/service_info/{{ service.id }}"><h4 align="center">{{service.name}}</h4> </a>
                                 </div>
                            </div>
                         </div>

@@ -15,7 +15,7 @@ def index(request):
     servis = Company_Service.objects.filter(company_id=company.id).all()
     services = Service.objects.filter(id__in=servis.values("service_id"))
     bnf = Benefit.objects.filter(employe_id=employe.id).all()
-    used_services = Service.objects.filter(id__in=bnf.values("supplier_service_id")).all()
+    used_services = Service.objects.filter(id__in=bnf.values("service_id")).all()
     return render(request, 'employee/index.html', locals(), RequestContext(request))
 
 
@@ -24,7 +24,7 @@ def services(request):
         return HttpResponseForbidden('Nope U\'re not Employee!')
     employe = Employe.objects.get(user_id=request.user.id)
     bnf = Benefit.objects.filter(employe_id=employe.id).all()
-    services = Service.objects.filter(id__in=bnf.values("supplier_service_id")).all()
+    services = Service.objects.filter(id__in=bnf.values("service_id")).all()
     return render(request, 'employee/services.html', locals(), RequestContext(request))
 
 
@@ -66,10 +66,10 @@ def credit_transfer(request):
 def service_choose(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     srv = Service.objects.get(id=pk)
-    if employe.credit >= srv.service_credit:
-        benefit = Benefit(employe_id=employe.id, supplier_service_id=srv.id)
+    if employe.credit >= srv.credit:
+        benefit = Benefit(employe_id=employe.id, service_id=srv.id)
         benefit.save()
-        employe.credit = employe.credit - srv.service_credit
+        employe.credit = employe.credit - srv.credit
         employe.save()
     else:
         return redirect('/employee', locals())
@@ -81,9 +81,9 @@ def service_leave(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     srv = Service.objects.get(id=pk)
     try:
-        benefit = Benefit.objects.get(employe_id=employe.id, supplier_service_id=pk)
+        benefit = Benefit.objects.get(employe_id=employe.id, service_id=pk)
         benefit.delete()
-        employe.credit = employe.credit + srv.service_credit
+        employe.credit = employe.credit + srv.credit
         employe.save()
         return redirect('/employee/services', locals())
     except Benefit.DoesNotExist:

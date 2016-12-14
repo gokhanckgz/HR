@@ -93,11 +93,11 @@
                                 {% for servis in data %}
                                     <tr class="active">
                                         <th scope="row">{{ servis.id }}</th>
-                                        <td>{{ servis.service_name }}</td>
-                                        <td>{{ servis.service_info }}</td>
+                                        <td>{{ servis.name }}</td>
+                                        <td>{{ servis.info }}</td>
                                         <td style="padding:15px 0px 15px 0px;">
                                             <a href="xy" title="">
-                                            <img src="{{ servis.service_image.url }}" style="height:50px;" alt="" title=""></a>
+                                            <img src="{{ servis.image.url }}" style="height:50px;" alt="" title=""></a>
                                         </td>
                                         <form action="service_info/{{ servis.id }}" method="post">
                                             {% csrf_token %}

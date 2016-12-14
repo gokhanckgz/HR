@@ -15,17 +15,17 @@ def index(request):
         print "I am unable to connect to the database"
     cur = conn.cursor()
     cur.execute(
-        "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.service_name, company_company.company_name "
+        "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.name, company_company.name "
         "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
-        "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
+        "AND company_benefit.service_id = supplier_service.id AND supplier_service.supplier_id = %s "
         "AND company_employe.company_id = company_company.id;", str(sp_id))
     data = cur.fetchall()
     if request.GET:
         search_value = request.GET.get('q')
         cur.execute(
-            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.service_name, company_company.company_name "
+            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.name, company_company.name "
             "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
-            "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
+            "AND company_benefit.service_id = supplier_service.id AND supplier_service.supplier_id = %s "
             "AND company_employe.company_id = company_company.id AND "
             " to_tsvector(company_employe.name || ' ' || company_employe.surname || ' ' || company_employe.phone_number) @@ to_tsquery (%s);",
             (str(sp_id), str(search_value)))
@@ -42,17 +42,17 @@ def customers(request):
         print "I am unable to connect to the database"
     cur = conn.cursor()
     cur.execute(
-        "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.service_name, company_company.company_name "
+        "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.name, company_company.name "
         "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
-        "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
+        "AND company_benefit.service_id = supplier_service.id AND supplier_service.supplier_id = %s "
         "AND company_employe.company_id = company_company.id;", str(sp_id))
     data = cur.fetchall()
     if request.GET:
         search_value = request.GET.get('q')
         cur.execute(
-            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.service_name, company_company.company_name "
+            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.name, company_company.name "
             "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
-            "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
+            "AND company_benefit.service_id = supplier_service.id AND supplier_service.supplier_id = %s "
             "AND company_employe.company_id = company_company.id AND "
             " to_tsvector(company_employe.name || ' ' || company_employe.surname || ' ' || company_employe.phone_number) @@ to_tsquery (%s);",
             (str(sp_id), str(search_value)))
@@ -84,7 +84,7 @@ def services(request):
 def service_info(request, pk):
     supplier = Supplier.objects.get(user_id=request.user.id)
     service = Service.objects.get(id=pk)
-    benefits = Benefit.objects.filter(supplier_service_id=service.id).all()
+    benefits = Benefit.objects.filter(service_id=service.id).all()
     employes = Employe.objects.filter(id__in=benefits.values("employe_id")).all()
     companys = Company.objects.filter(id__in=employes.values("company_id")).all()
     return render(request, 'supplier/service_info.html', locals(), RequestContext(request))

@@ -5,7 +5,7 @@ from supplier.models import Service
 ###For Commit###
 class Company(models.Model):
     user = models.OneToOneField(User, verbose_name="User ID")
-    company_name = models.CharField(max_length=20, verbose_name="Name", default="New User")
+    name = models.CharField(max_length=20, verbose_name="Name", default="New User")
     image = models.ImageField(verbose_name="Image", null='True', upload_to='img')
 
     def __str__(self):
@@ -27,10 +27,10 @@ class Employe(models.Model):
 
 class Benefit(models.Model):
     employe = models.ForeignKey(Employe)
-    supplier_service = models.ForeignKey(Service)
+    service = models.ForeignKey(Service)
 
     def __str__(self):
-        return 'Employe ID is %s and Benefit ID is %s' % (str(self.employe_id), str(self.supplier_service_id))
+        return 'Employe ID is %s and Benefit ID is %s' % (str(self.employe_id), str(self.service_id))
 
 class Company_Service(models.Model):
     company = models.ForeignKey(Company)
