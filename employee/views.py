@@ -66,10 +66,10 @@ def credit_transfer(request):
 def service_choose(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     srv = Service.objects.get(id=pk)
-    if employe.credit >= 1:
+    if employe.credit >= srv.service_credit:
         benefit = Benefit(employe_id=employe.id, supplier_service_id=srv.id)
         benefit.save()
-        employe.credit = employe.credit - 1
+        employe.credit = employe.credit - srv.service_credit
         employe.save()
     else:
         return redirect('/employee', locals())
@@ -79,10 +79,11 @@ def service_choose(request, pk):
 
 def service_leave(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
+    srv = Service.objects.get(id=pk)
     try:
         benefit = Benefit.objects.get(employe_id=employe.id, supplier_service_id=pk)
         benefit.delete()
-        employe.credit = employe.credit + 1
+        employe.credit = employe.credit + srv.service_credit
         employe.save()
         return redirect('/employee/services', locals())
     except Benefit.DoesNotExist:
