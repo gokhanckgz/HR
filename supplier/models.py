@@ -13,6 +13,7 @@ class Supplier(models.Model):
 class Service(models.Model):
     service_name = models.CharField(max_length=50, blank=False, verbose_name="Service Name",)
     service_info = models.CharField(max_length=50, verbose_name="Info")
+    service_credit = models.IntegerField(verbose_name="Service Credit")
     service_image = models.ImageField(verbose_name="Service Photo",upload_to='img')
     supplier = models.ForeignKey(Supplier, verbose_name="Supplier's ID")
     def __str__(self):
