@@ -17,7 +17,7 @@ class ProfileEditForm(ModelForm):
             HTML("<b>Kredi</b>"),
             InlineField('credit', readonly=True),
             Field('image'),
-            HTML("""{% if form.image.value %}<img class="img-responsive" src="{{ MEDIA_URL }}{{ form.image.value }}">{% endif %}"""),
+            HTML("""{% if form.image.value %}<img class="img-responsive" src="/{{ MEDIA_URL }}{{ form.image.value }}">{% endif %}"""),
             ButtonHolder(
                 Submit('Save', 'Guncelle', css_class='button white'),
                 HTML('<a class="btn btn-warning" href={% url "credit_transfer" %}>Kredi Transfer Et</a>'),
