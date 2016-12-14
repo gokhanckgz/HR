@@ -90,7 +90,7 @@ def services(request):
     data = Service.objects.all()
     if request.GET:
         search_value = request.GET.get('q')
-        data = Service.objects.annotate(search=SearchVector('service_name'), ).filter(search=search_value)
+        data = Service.objects.annotate(search=SearchVector('name'), ).filter(search=search_value)
     return render(request, 'company/services.html', locals(), RequestContext(request))
 
 
