@@ -33,6 +33,32 @@ def index(request):
         return render(request, 'supplier/index.html', locals(), RequestContext(request))
     return render(request, 'supplier/index.html', locals(), RequestContext(request))
 
+def customers(request):
+    supplier = Supplier.objects.get(user_id=request.user.id)
+    sp_id = supplier.id
+    try:
+        conn = psycopg2.connect("dbname='deneme2' user='postgres' host='localhost' password='123'")
+    except:
+        print "I am unable to connect to the database"
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.service_name, company_company.company_name "
+        "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
+        "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
+        "AND company_employe.company_id = company_company.id;", str(sp_id))
+    data = cur.fetchall()
+    if request.GET:
+        search_value = request.GET.get('q')
+        cur.execute(
+            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.service_name, company_company.company_name "
+            "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
+            "AND company_benefit.supplier_service_id = supplier_service.id AND supplier_service.supplier_id = %s "
+            "AND company_employe.company_id = company_company.id AND "
+            " to_tsvector(company_employe.name || ' ' || company_employe.surname || ' ' || company_employe.phone_number) @@ to_tsquery (%s);",
+            (str(sp_id), str(search_value)))
+        data = cur.fetchall()
+        return render(request, 'supplier/customers.html', locals(), RequestContext(request))
+    return render(request, 'supplier/customers.html', locals(), RequestContext(request))
 
 def profile(request):
     supplier = Supplier.objects.get(user_id=request.user.id)
