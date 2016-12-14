@@ -68,7 +68,11 @@ def service_choose(request, pk):
     srv = Service.objects.get(id=pk)
     if employe.credit >= srv.credit:
         benefit = Benefit(employe_id=employe.id, service_id=srv.id)
-        benefit.save()
+        if benefit:
+            benefit.usage=1
+            benefit.save()
+        else:
+            benefit.usage = +1
         employe.credit = employe.credit - srv.credit
         employe.save()
     else:
@@ -95,5 +99,5 @@ def service_info(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     service = Service.objects.get(id=pk)
     bnf = Benefit.objects.filter(employe_id=employe.id).all()
-    used_services = Service.objects.filter(id__in=bnf.values("supplier_service_id")).all()
+    used_services = Service.objects.filter(id__in=bnf.values("service_id")).all()
     return render(request, 'employee/service_info.html', locals(), RequestContext(request))
