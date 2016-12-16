@@ -102,8 +102,10 @@ def service_use(request, pk):
     form = ServiceUseForm()
     if request.method == 'POST':
         form = ServiceUseForm(request.POST, request.FILES)
-        form.fields["supplier_service"].queryset = Service.objects.filter(supplier_id=supplier.id)
+        form.fields["service"].queryset = Service.objects.filter(supplier_id=supplier.id)
         if form.is_valid():
-            form.save(employe_id=employe.id)
+            usage = form.cleaned_data.get('usage')
+            service = form.cleaned_data.get('service')
+            form.save(employe_id=employe.id,usage=usage,service=service,employe=employe)
             return redirect('/supplier', locals())
     return render(request, 'supplier/employe_info.html', locals(), RequestContext(request))

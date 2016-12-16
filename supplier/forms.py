@@ -34,9 +34,23 @@ class ServiceUseForm(ModelForm):
 
     class Meta:
         model = Benefit
-        fields = ('service',)
+        fields = ('service','usage')
 
     def save(self, **kwargs):
         benefit = super(ServiceUseForm, self).save(commit=False)
-        benefit.employe_id = kwargs.get('employe_id')
-        benefit.save()
+        employe_id = kwargs.get('employe_id')
+        service = kwargs.get("service")
+        employe = kwargs.get('employe')
+        usage = kwargs.get('usage')
+        if Benefit.objects.filter(employe_id=employe_id,service_id=service.id).exists():
+            used_benefit=Benefit.objects.get(employe_id=employe_id, service_id=service.id)
+            used_benefit.usage+=usage
+            used_benefit.save()
+            employe.credit-=(service.credit*usage)
+            employe.save()
+        else:
+            benefit.employe_id = kwargs.get('employe_id')
+            benefit.save()
+            service = kwargs.get('service')
+            employe.credit-=(service.credit*usage)
+            employe.save()

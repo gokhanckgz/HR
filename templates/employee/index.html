@@ -92,15 +92,6 @@
                         <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.image.url}}); background-size: cover;">
                             <div class="text-image">
                                 <div class="panel-body text-center">
-                                    {% if service in used_services %}
-                                        <a href="services/service_leave/{{ service.id }}">
-                                            <h1>Kullanımı düzenle</h1>
-                                        </a>
-                                    {% else %}
-                                        <a href="services/service_choose/{{ service.id }}">
-                                        <h1>Ekle</h1>
-                                        </a>
-                                    {% endif %}
                                 </div>
                                 <div class="svg-48">
                                     <a href="services/service_info/{{ service.id }}"><h4 align="center">{{service.name}}</h4> </a>
