@@ -1,6 +1,6 @@
 from django import forms as form
 from django.forms import *
-from company.models import Employe
+from company.models import Employe,Benefit
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit,Layout,Field,HTML,ButtonHolder
 from crispy_forms.bootstrap import InlineField
@@ -36,3 +36,34 @@ class CreditTransferForm(Form):
         self.helper.form_method = 'POST'
         self.helper.form_action = ''
         self.helper.add_input(Submit('submit', 'Gonder'))
+
+class ServiceUseForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ServiceUseForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Kaydet'))
+
+    class Meta:
+        model = Benefit
+        fields = ('usage',)
+
+    def save(self, **kwargs):
+        benefit = super(ServiceUseForm, self).save(commit=False)
+        employe = kwargs.get('employe')
+        service = kwargs.get("service")
+        employe = kwargs.get('employe')
+        usage = kwargs.get('usage')
+        if Benefit.objects.filter(employe_id=employe.id, service_id=service.id).exists():
+            used_benefit = Benefit.objects.get(employe_id=employe.id, service_id=service.id)
+            used_benefit.usage += usage
+            used_benefit.save()
+            employe.credit -= (service.credit * usage)
+            employe.save()
+        else:
+            benefit.employe_id = employe.id
+            benefit.service_id = service.id
+            benefit.save()
+            service = kwargs.get('service')
+            employe.credit -= (service.credit * usage)
+            employe.save()

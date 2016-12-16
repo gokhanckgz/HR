@@ -9,7 +9,16 @@
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/material-design.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
-        <title>Feelincs Insan Kaynakları Servis Info</title>
+        <title>Feelincs Insan Kaynakları</title>
+        {% load crispy_forms_tags %}
+        <style>
+        .img-profile{
+            display: block;
+            max-width: 10%;
+            max-height: 10%;
+            margin-bottom : 1%;
+        }
+        </style>
     </head>
     <body class="cm-no-transition cm-1-navbar">
         <div id="cm-menu">
@@ -32,8 +41,9 @@
             <nav class="cm-navbar cm-navbar-midnight">
                 <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
                 <div class="cm-flex">
-                    <h1>Servis Bilgi Sayfası</h1>
+                    <h1>Profil</h1>
                 </div>
+
                 <div class="dropdown pull-right">
                   {% if employe.image %}
                     <button class="btn btn-midnight" data-toggle="dropdown" style="background: url({{ employe.image.url }});background-size: cover;background-position:center;border-radius:50%;opacity: 0.7">
@@ -61,35 +71,20 @@
         </header>
         <div id="global">
             <div class="container-fluid cm-container-white">
-                <h2 class="pull-left" style="margin-top:0;">Servis Bilgi Sayfası</h2>
+                <h2 class="pull-left" style="margin-top:0;">Profil</h2>
                 <h4 class="pull-right" style="margin-top:0;"><code>Mevcut Krediniz :</code> {{ employe.credit }} </h4>
             </div>
             <div class="container-fluid">
                 <div class="row cm-fix-height">
+			<div class="panel-body">
+                     {% block content %}
+                       {% crispy form %}
+                    {% endblock %}
+            </div>
                 </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading">{{ service.name }}</div>
-                    <div class="panel-body">
-                        <div class="row">
-                        <svg width="auto"style="background-image:url({{ service.image.url}});background-size:100% 100%;"></svg>
-                        </div>
-                    </div>
-                </div>
-                {% if service in used_services %}
-                    <a href="service_choose/{{ service.id }}">
-                     <button type="button" class="btn btn-midnight btn-lg">Kullanım Ekle</button>
-                    </a>
-                    <a href="service_leave/{{ service.id }}">
-                     <button type="button" class="btn btn-midnight btn-lg">Kullanım Çıkar</button>
-                    </a>
-                {% else %}
-                    <div style="text-align: center">
-                    <a href="service_choose/{{ service.id }}">
-                    <button type="button" class="btn btn-midnight btn-lg">Servisi Kullan</button>
-                    </a>
-                    </div>
-                {% endif %}
-                    </div>
+				<div class="row cm-fix-height">
+				</div>
+            </div>
 
             <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; </span></footer>
         </div>

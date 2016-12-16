@@ -97,15 +97,13 @@ def employe_info(request, pk):
 
 
 def service_use(request, pk):
-    supplier = Supplier.objects.get(user_id=request.user.id)
-    employe = Employe.objects.get(id=pk)
+    employe = Employe.objects.get(user_id=request.user.id)
+    service = Service.objects.get(id=pk)
     form = ServiceUseForm()
     if request.method == 'POST':
         form = ServiceUseForm(request.POST, request.FILES)
-        form.fields["service"].queryset = Service.objects.filter(supplier_id=supplier.id)
         if form.is_valid():
             usage = form.cleaned_data.get('usage')
-            service = form.cleaned_data.get('service')
             form.save(employe_id=employe.id,usage=usage,service=service,employe=employe)
             return redirect('/supplier', locals())
     return render(request, 'supplier/employe_info.html', locals(), RequestContext(request))

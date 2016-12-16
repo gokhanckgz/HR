@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render, redirect
 from supplier.models import Service
 from company.models import Benefit, Employe, Company_Service, Company
-from .forms import ProfileEditForm, CreditTransferForm
+from .forms import ProfileEditForm, CreditTransferForm, ServiceUseForm
 from usermanage.models import User
 
 
@@ -65,36 +65,29 @@ def credit_transfer(request):
 
 def service_choose(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
-    srv = Service.objects.get(id=pk)
-    if employe.credit >= srv.credit:
-        if Benefit.objects.filter(employe_id=employe.id, service_id=srv.id).exists():
-            benefit = Benefit.objects.get(employe_id=employe.id, service_id=srv.id)
-            benefit.usage +=1
-            benefit.save()
+    service = Service.objects.get(id=pk)
+    form = ServiceUseForm(instance=employe)
+    if request.method == 'POST':
+        if request.user.id:
+            form =ServiceUseForm(request.POST)
         else:
-            benefit = Benefit(employe_id=employe.id, service_id=srv.id)
-            benefit.usage=1
-            benefit.save()
-        employe.credit = employe.credit - srv.credit
-        employe.save()
-    else:
-        return redirect('/employee', locals())
-        ##bakiye yetersiz tasarimi
-    return redirect('/employee/services', locals())
+            form = ServiceUseForm(request.POST)
+        if form.is_valid():
+            usage = form.cleaned_data.get('usage')
+            form.save(employe=employe,usage=usage,service=service)
+            return redirect('/employee', locals())
+    return render(request, 'employee/service_add.html', locals(), RequestContext(request))
 
 
 def service_leave(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
     srv = Service.objects.get(id=pk)
-    try:
+    if Benefit.objects.filter(employe_id=employe.id , service_id = pk).exists():
         benefit = Benefit.objects.get(employe_id=employe.id, service_id=pk)
-        benefit.delete()
-        employe.credit = employe.credit + srv.credit
-        employe.save()
-        return redirect('/employee/services', locals())
-    except Benefit.DoesNotExist:
-        return "yok ki"
-        ##zaten kullanilmayan service
+        benefit.usage-= usage
+    employe.credit = employe.credit + srv.credit
+    employe.save()
+    return redirect('/employee/services', locals())
 
 
 def service_info(request, pk):
