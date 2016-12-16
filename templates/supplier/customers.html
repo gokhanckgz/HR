@@ -33,7 +33,7 @@
             <nav class="cm-navbar cm-navbar-midnight">
                 <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
                 <div class="cm-flex">
-                    <h1>Anasayfa</h1>
+                    <h1>Müşteriler</h1>
                     <form id="cm-search" action="/supplier" method="GET">
                         <input type="search" name="q" autocomplete="off" placeholder="Search...">
                     </form>
@@ -68,7 +68,7 @@
         </header>
         <div id="global">
             <div class="container-fluid cm-container-white">
-                <h2 style="margin-top:0;">Anasayfa</h2>
+                <h2 style="margin-top:0;">Müşteriler</h2>
             </div>
             <div class="container-fluid">
                 <div class="row cm-fix-height">
@@ -84,6 +84,7 @@
                                         <th>Kullanıcı İsmi</th>
                                         <th>Kullanıcı Soyismi </th>
                                         <th>Kullanıcı Telefonu </th>
+                                        <th>Kullanıcı Kredisi </th>
                                         <th>Kullanıcı Fotoğrafı</th>
                                         <th>Kullandığı Servis</th>
                                         <th>Çalıştığı Şirket</th>
@@ -96,12 +97,13 @@
                                         <th scope="row">{{ user.1 }}</th>
                                         <td>{{ user.2 }}</td>
                                         <td>{{ user.3 }}</td>
+                                        <td class="text-center">{{user.4}}</td>
                                         <td style="padding:15px 0px 15px 0px;">
                                             <a href="employe_info/{{ user.0 }}" title="">
-                                            <img src="/media/{{ user.4 }}" style="height:50px;" alt="" title=""></a>
+                                            <img src="/media/{{ user.5 }}" style="height:50px;" alt="" title=""></a>
                                         </td>
-                                            <td>{{user.5}}</td>
                                         <td>{{ user.6}}</td>
+                                        <td>{{ user.7}}</td>
                                     {% endfor %}
                                     </tr>
                                 </tbody>
