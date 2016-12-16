@@ -105,13 +105,13 @@
                                         <td><button type="submit" class="btn btn-midnight btn-sm"> Servis Bilgisi</button></td>
                                         </form>
                                         {% if servis in used_services %}
-                                        <form action="/company/service_delete/{{ servis.id }}" method="post">
+                                        <form action="service_delete/{{ servis.id }}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="item_id" value="{{employe.id}}" />
                                         <td><button type="submit" class="btn btn-midnight btn-sm"> Seçimi Bırak</button></td>
                                         </form>
                                         {% else %}
-                                        <form action="/company/service_choose/{{ servis.id }}" method="post">
+                                        <form action="service_choose/{{ servis.id }}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="item_id" value="{{employe.id}}" />
                                         <td><button type="submit" class="btn btn-midnight btn-sm"> Servisi Kullan</button></td>

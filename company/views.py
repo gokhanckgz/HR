@@ -93,6 +93,10 @@ def services(request):
         data = Service.objects.annotate(search=SearchVector('name'), ).filter(search=search_value)
     return render(request, 'company/services.html', locals(), RequestContext(request))
 
+def service_info(request, pk):
+    company = models.Company.objects.get(user_id=request.user.id)
+    service = Service.objects.get(id=pk)
+    return render(request, 'company/service_info.html', locals(), RequestContext(request))
 
 def service_choose(request, pk):
     company = models.Company.objects.get(user_id=request.user.id)
