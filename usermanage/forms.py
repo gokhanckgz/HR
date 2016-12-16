@@ -57,12 +57,3 @@ class UserChangeForm(forms.ModelForm):
     def clean_password(self):
         return self.initial["password"]
 
-class ProfileEditForm(UserChangeForm):
-    class Meta:
-        model=User
-        fields=('username','date_of_birth',)
-
-class UserCreateForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields = ('username',)

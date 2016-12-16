@@ -2,7 +2,7 @@ from django.core.validators import RegexValidator
 from django.db import models
 from usermanage.models import User
 from supplier.models import Service
-###For Commit###
+
 class Company(models.Model):
     user = models.OneToOneField(User, verbose_name="User ID")
     name = models.CharField(max_length=20, verbose_name="Name", default="New User")

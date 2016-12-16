@@ -106,12 +106,12 @@
                                             <td>Fotoğraf Bulunmamaktadır</td>
                                         {% endif %}
                                         <td style="padding-left: 4.5%;">{{ employe.credit }}</td>
-                                        <form action="emp_edit/{{ employe.id }}" method="post">
+                                        <form action="emp_edit/{{ employe.id }}">
                                             {% csrf_token %}
                                             <input type="hidden" name="item_id" value="{{employe.id}}" />
                                         <td><button type="submit" class="btn btn-midnight btn-sm"> Düzenle</button></td>
                                         </form>
-                                        <form action="emp_delete/{{ employe.id }}" method="post">
+                                        <form action="emp_delete/{{ employe.id }}">
                                             {% csrf_token %}
                                             <input type="hidden" name="item_id" value="{{employe.id}}" />
                                         <td><button type="submit" class="btn btn-midnight btn-sm"> Sil</button></td>
