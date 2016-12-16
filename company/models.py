@@ -19,6 +19,7 @@ class Employe(models.Model):
     phone_regex = RegexValidator(regex=r'^\d{9,15}$',message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
     phone_number = models.CharField(validators=[phone_regex], blank=True , max_length=12)  # validators should be a list
     credit = models.IntegerField(verbose_name="Credit", default=0)
+    point = models.IntegerField(verbose_name="Employe Credit" , default=0)
     company = models.ForeignKey(Company, verbose_name="Company ID")
 
     def __str__(self):
