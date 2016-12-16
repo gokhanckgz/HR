@@ -49,7 +49,7 @@ def employe_info(request, pk):
     company = models.Company.objects.get(user_id=request.user.id)
     employe = Employe.objects.get(id=pk)
     bnf = models.Benefit.objects.filter(employe_id=employe.id).all()
-    services = Service.objects.filter(id__in=bnf.values("supplier_service_id")).all()
+    services = Service.objects.filter(id__in=bnf.values("service_id")).all()
     return render(request, 'company/employe_info.html', locals(), RequestContext(request))
 
 
