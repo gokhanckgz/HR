@@ -3,7 +3,7 @@ from django.template import RequestContext
 from django.shortcuts import render, redirect
 from supplier.models import Service
 from company.models import Benefit, Employe, Company_Service, Company
-from .forms import ProfileEditForm, CreditTransferForm, ServiceUseForm
+from .forms import ProfileEditForm, CreditTransferForm, ServiceUseForm, ServiceLeaveForm
 from usermanage.models import User
 
 
@@ -81,13 +81,25 @@ def service_choose(request, pk):
 
 def service_leave(request, pk):
     employe = Employe.objects.get(user_id=request.user.id)
-    srv = Service.objects.get(id=pk)
+    service = Service.objects.get(id=pk)
+    form = ServiceUseForm()
     if Benefit.objects.filter(employe_id=employe.id , service_id = pk).exists():
-        benefit = Benefit.objects.get(employe_id=employe.id, service_id=pk)
-        benefit.usage-= usage
-    employe.credit = employe.credit + srv.credit
-    employe.save()
-    return redirect('/employee/services', locals())
+        benefit = Benefit.objects.get(employe_id=employe.id , service_id = pk)
+        if benefit.usage==1:
+            benefit.delete()
+            return redirect('/employee/services', locals())
+        else:
+            if request.method == 'POST':
+                if request.user.id:
+                    form = ServiceLeaveForm(request.POST)
+                else:
+                    form = ServiceLeaveForm(request.POST)
+                if form.is_valid():
+                    usage = form.cleaned_data.get('usage')
+                    form.save(employe=employe, usage=usage, service=service)
+                    return redirect('/employee/services', locals())
+    return render(request, 'employee/service_leave.html', locals(), RequestContext(request))
+
 
 
 def service_info(request, pk):

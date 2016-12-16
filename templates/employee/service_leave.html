@@ -10,26 +10,14 @@
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/small-n-flat.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'assets/css/font-awesome.min.css' %}">
         <title>Feelincs Insan Kaynakları</title>
-                <style>
-            .text-image{
-                opacity: 0;
-                width: 100%;
-                color: #fff;
-                left: 0;
-                bottom: 0;
-                padding: 0.75em 1em;
-                font-weight: 700;
-                z-index: 2;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                background-color: rgba(0,0,0,.7);
-                -webkit-transition: opacity .3s ease-in-out;
-                transition: opacity .3s ease-in-out;
-                border-radius: 1%;
-            }
-            .text-image:hover {
-                opacity: 1;
-            }
+        {% load crispy_forms_tags %}
+        <style>
+        .img-profile{
+            display: block;
+            max-width: 10%;
+            max-height: 10%;
+            margin-bottom : 1%;
+        }
         </style>
     </head>
     <body class="cm-no-transition cm-1-navbar">
@@ -43,7 +31,7 @@
                     <div id="cm-menu-scroller">
                         <ul class="cm-menu-items">
                             <li><a href="/employee" class="sf-house">Anasayfa</a></li>
-                            <li class="active"><a href="/employee/services/" class="sf-window-layout">Kullandığım Servisler</a></li>
+                            <li><a href="/employee/services/" class="sf-window-layout">Kullandığım Servisler</a></li>
                         </ul>
                     </div>
                 </div>
@@ -53,7 +41,7 @@
             <nav class="cm-navbar cm-navbar-midnight">
                 <div class="btn md-menu-white hidden-md hidden-lg btn-midnight" data-toggle="cm-menu"></div>
                 <div class="cm-flex">
-                    <h1>Kullandığım Servisler</h1>
+                    <h1>Profil</h1>
                 </div>
 
                 <div class="dropdown pull-right">
@@ -83,24 +71,17 @@
         </header>
         <div id="global">
             <div class="container-fluid cm-container-white">
-                <h2 class="pull-left" style="margin-top:0;">Servisler</h2>
+                <h2 class="pull-left" style="margin-top:0;">Profil</h2>
                 <h4 class="pull-right" style="margin-top:0;"><code>Mevcut Krediniz :</code> {{ employe.credit }} </h4>
             </div>
             <div class="container-fluid">
                 <div class="row cm-fix-height">
-					{%  for service in services %}
-					<div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
-                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.image.url}}); background-size: cover;">
-                            <div class="text-image">
-                                <div class="panel-body text-center">
-                                </div>
-                                <div class="svg-48">
-                                    <a href="service_info/{{ service.id }}"><h4 align="center">{{service.name}}</h4> </a>
-                                </div>
-                           </div>
-                        </div>
-                    </div>
-                {% endfor %}
+			<div class="panel-body">
+                     {% block content %}
+                       {% crispy form %}
+                    {% endblock %}
+            </div>
+                </div>
 				<div class="row cm-fix-height">
 				</div>
             </div>

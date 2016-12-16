@@ -33,6 +33,7 @@ def index(request):
         return render(request, 'supplier/index.html', locals(), RequestContext(request))
     return render(request, 'supplier/index.html', locals(), RequestContext(request))
 
+
 def customers(request):
     supplier = Supplier.objects.get(user_id=request.user.id)
     sp_id = supplier.id
@@ -59,6 +60,7 @@ def customers(request):
         data = cur.fetchall()
         return render(request, 'supplier/customers.html', locals(), RequestContext(request))
     return render(request, 'supplier/customers.html', locals(), RequestContext(request))
+
 
 def profile(request):
     supplier = Supplier.objects.get(user_id=request.user.id)
@@ -104,6 +106,6 @@ def service_use(request, pk):
         form = ServiceUseForm(request.POST, request.FILES)
         if form.is_valid():
             usage = form.cleaned_data.get('usage')
-            form.save(employe_id=employe.id,usage=usage,service=service,employe=employe)
+            form.save(employe_id=employe.id, usage=usage, service=service, employe=employe)
             return redirect('/supplier', locals())
     return render(request, 'supplier/employe_info.html', locals(), RequestContext(request))
