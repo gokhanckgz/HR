@@ -51,7 +51,7 @@
                     {% endif %}
                     <ul class="dropdown-menu">
                         <li class="disabled text-center">
-                            <a style="cursor:default;"><strong>{{ company.company_name }}</strong></a>
+                            <a style="cursor:default;"><strong>{{ company.name }}</strong></a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -107,7 +107,6 @@
                                         {% endif %}
                                         <td style="padding-left: 4.5%;">{{ employe.credit }}</td>
                                         <form action="emp_edit/{{ employe.id }}">
-                                            {% csrf_token %}
                                             <input type="hidden" name="item_id" value="{{employe.id}}" />
                                         <td><button type="submit" class="btn btn-midnight btn-sm"> Düzenle</button></td>
                                         </form>
