@@ -51,10 +51,10 @@ def customers(request):
     if request.GET:
         search_value = request.GET.get('q')
         cur.execute(
-            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.image, supplier_service.name, company_company.name "
+            "SELECT company_employe.id, company_employe.name, company_employe.surname, company_employe.phone_number, company_employe.credit , company_employe.image, supplier_service.name, company_company.name "
             "FROM public.company_employe, public.supplier_service, public.company_company, public.company_benefit WHERE company_benefit.employe_id = company_employe.id "
             "AND company_benefit.service_id = supplier_service.id AND supplier_service.supplier_id = %s "
-            "AND company_employe.company_id = company_company.id AND "
+            "AND company_employe.company_id = company_company.id AND"
             " to_tsvector(company_employe.name || ' ' || company_employe.surname || ' ' || company_employe.phone_number) @@ to_tsquery (%s);",
             (str(sp_id), str(search_value)))
         data = cur.fetchall()
