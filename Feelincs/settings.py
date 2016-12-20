@@ -13,14 +13,13 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 import ldap
 from django_auth_ldap.config import LDAPSearch
+
 AUTH_LDAP_BIND_DN = ""
 AUTH_LDAP_BIND_PASSWORD = ""
 AUTH_LDAP_USER_SEARCH = LDAPSearch("ou=users,dc=feelincs,dc=com",
-    ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
+                                   ldap.SCOPE_SUBTREE, "(uid=%(user)s)")
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
@@ -31,8 +30,7 @@ SECRET_KEY = 'ko1p71hjjg=p)j0)8(o8)5#%7uybwpwd*y%-6w^s=r^xj25+vi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['feelincs.com','www.feelincs.com','localhost']
-
+ALLOWED_HOSTS = ['feelincs.com', 'www.feelincs.com', 'localhost']
 
 # Application definition
 
@@ -43,14 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'login',
-	'supplier',
-	'usermanage',
-	'company',
-	'employee',
+    'django.contrib.postgres',
+    'login',
+    'supplier',
+    'usermanage',
+    'company',
+    'employee',
     'psycopg2',
     'crispy_forms',
-    'django.contrib.postgres'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -69,8 +67,8 @@ ROOT_URLCONF = 'Feelincs.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ BASE_DIR + '/templates',
-		],
+        'DIRS': [BASE_DIR + '/templates',
+                 ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -89,21 +87,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Feelincs.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-    'default':{
-		'ENGINE':'django.db.backends.postgresql_psycopg2',
-		'NAME':'deneme2',
-		'USER':'postgres',
-		'PASSWORD':'123',
-        'HOST':'',
-        'PORT':'',
-	}
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'deneme2',
+        'USER': 'postgres',
+        'PASSWORD': '123',
+        'HOST': '',
+        'PORT': '',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -128,8 +124,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -143,13 +137,11 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
-STATIC_ROOT = os.path.join(BASE_DIR,"static_root")
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'usermanage.User'
-
