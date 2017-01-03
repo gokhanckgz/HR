@@ -18,6 +18,32 @@
             max-height: 10%;
             margin-bottom : 1%;
         }
+            .morris-hover {
+  position:absolute;
+  z-index:1000;
+}
+
+.morris-hover.morris-default-style {     border-radius:10px;
+  padding:6px;
+  color:#666;
+  background:rgba(255, 255, 255, 0.8);
+  border:solid 2px rgba(230, 230, 230, 0.8);
+  font-family:sans-serif;
+  font-size:12px;
+  text-align:center;
+}
+
+.morris-hover.morris-default-style .morris-hover-row-label {
+  font-weight:bold;
+  margin:0.25em 0;
+}
+
+.morris-hover.morris-default-style .morris-hover-point {
+  white-space:nowrap;
+  margin:0.1em 0;
+}
+
+svg { width: 100%; }
         </style>
     </head>
     <body class="cm-no-transition cm-1-navbar">
@@ -76,14 +102,34 @@
             </div>
             <div class="container-fluid">
                 <div class="row cm-fix-height">
-			<div class="panel-body">
-            </div>
+                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.image.url}}); background-size: cover;">
+                            <span class="svg-48 sf-user-id" style="background-position: center;background-repeat: no-repeat;"></span>
+                                <div class="panel-body text-center">
+                                    <h4>Calisan Sayisi</h4>
+                                    <h4>{{ customer.count }}</h4>
+                                </div>
+                       </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.image.url}}); background-size: cover;">
+                            <span class="svg-48 sf-wrench-screwdriver" style="background-position: center;background-repeat: no-repeat;"></span>
+                                <div class="panel-body text-center">
+                                    <h4>Servis Sayisi</h4>
+                                    <h4>{{ services.count }}</h4>
+                                </div>
+                       </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4 col-md-4 col-lg-3">
+                        <div class="panel panel-default thumbnail cm-thumbnail" style="background-image:url({{ service.image.url}}); background-size: cover;">
+                            <span class="svg-48 sf-handshake" style="background-position: center;background-repeat: no-repeat;"></span>
+                                <div class="panel-body text-center">
+                                    <h4>Benefit Sayisi</h4>
+                                    <h4>{{ benefits.count }}</h4>
+                                </div>
+                       </div>
+                    </div>
                 </div>
-				<div class="row cm-fix-height">
-                    servis sayısı {{ services.count }}<br>
-                    müşteri sayısı {{ customer.count }}<br>
-                    benefit sayısı {{ benefits.count }}
-				</div>
             </div>
 
             <footer class="cm-footer"><span class="pull-left">Connected as John Smith</span><span class="pull-right">&copy; </span></footer>
@@ -95,5 +141,5 @@
         <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
         <script src="{% static 'assets/js/clearmin.min.js' %}"></script>
         <script src="{% static 'assets/js/demo/home.js' %}"></script>
-    </body>
+</body>
 </html>
