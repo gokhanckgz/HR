@@ -1,0 +1,7 @@
+Django==1.11.3
+python-ldap==2.4.41
+django-auth-ldap==1.2.13
+psycopg2==2.7.1
+django-crispy-forms==1.6.1
+Pillow==4.2.1
+pytz==2017.2
